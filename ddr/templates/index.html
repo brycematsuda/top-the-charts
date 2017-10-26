@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %} 
+{% block content %}
+<div class="jumbotron">
+  <h1 class="display-3">Welcome to Top The Charts!</h1>
+  <p class="lead">Top The Charts aims to provide quick and easy access to song information and chart videos from the latest version of the rhythm game DanceDanceRevolution (and possibly other games in the future) using a modern and responsive UI.</p>
+  <hr class="my-4">
+  <p>This is just a placeholder until something better can be added, but in the mean time you can head straight to the song list.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{% url 'songs index' %}" role="button">Go to DDR songs</a>
+  </p>
+</div>
+{% endblock %}

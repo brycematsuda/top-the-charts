@@ -1,0 +1,125 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+  <title>Top The Charts - DDR - Songs - {{ folder.name }}</title>
+{% endblock %}
+
+{% block content %}
+  <h3>{{ folder.name }}</h3>
+  <div class="card-group">
+  {% for song in songs %}
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{ song.name }}</h4>
+        <p class="card-text">{{ song.artist}}</p>
+        <span class="badge badge-primary">single</span>
+        <div>
+          {% if song.single_beginner %}
+            {% if song.single_beginner_video %}
+              <a href="{{ song.single_beginner_video }}" class="beginner-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="beginner-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.single_beginner }}
+            </a>
+          {% endif %}
+          {% if song.single_basic %}
+            {% if song.single_basic_video %}
+              <a href="{{ song.single_basic_video }}" class="basic-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="basic-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.single_basic }}
+          </a>
+          {% endif %}
+          {% if song.single_difficult %}
+            {% if song.single_difficult_video %}
+              <a href="{{ song.single_difficult_video }}" class="difficult-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="difficult-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.single_difficult }}
+          </a>
+          {% endif %}
+          {% if song.single_expert %}
+            {% if song.single_expert_video %}
+              <a href="{{ song.single_expert_video }}" class="expert-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="expert-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.single_expert }}
+          </a>
+          {% endif %}
+          {% if song.single_challenge %}
+            {% if song.single_challenge_video %}
+              <a href="{{ song.single_challenge_video }}" class="challenge-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="challenge-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.single_challenge }}
+            {% if song.challenge_has_shock_arrows %}
+              <i class="fa fa-bolt" aria-hidden="true"></i>
+            {% endif %}
+            </a>
+          {% endif %}
+        </div>
+        <br />
+        <span class="badge badge-primary">double</span>      
+        <div>
+            {% if song.double_basic %}
+            {% if song.double_basic_video %}
+            <a href="{{ song.double_basic_video }}" class="basic-btn btn btn-sm" role="button" target="_blank">
+            {% else %}
+              <a href="#" class="basic-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.double_basic }}
+          </a>
+          {% endif %}
+          {% if song.double_difficult %}
+            {% if song.double_difficult_video %}
+              <a href="{{ song.double_difficult_video }}" class="difficult-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="difficult-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.double_difficult }}
+          </a>
+          {% endif %}
+          {% if song.double_expert %}
+            {% if song.double_expert_video %}
+              <a href="{{ song.double_expert_video }}" class="expert-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="expert-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.double_expert }}
+          </a>
+          {% endif %}
+          {% if song.double_challenge %}
+            {% if song.double_challenge_video %}
+              <a href="{{ song.double_challenge_video }}" class="challenge-btn btn btn-sm" role="button" target="_blank">
+            {% else %}  
+              <a href="#" class="challenge-btn btn btn-sm disabled" role="button" aria-disabled="true">
+            {% endif %}
+            {{ song.double_challenge }}
+            {% if song.challenge_has_shock_arrows %}
+            <i class="fa fa-bolt" aria-hidden="true"></i>
+            {% endif %}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {# If there are any cards hanging on a row at the end, add extra cards to prevent auto-resizing #}
+  {% if forloop.counter|divisibleby:"3" and not forloop.last %}
+  </div><div class="card-group">
+  {% endif %}
+  {% if not forloop.counter|divisibleby:"3" and forloop.last %}
+    {% if forloop.counter|add:1|divisibleby:"3" %}
+    <div class="card"></div>
+    {% else %}
+    <div class="card"></div>
+    <div class="card"></div>
+    {% endif %}
+  {% endif %}
+  {% endfor %}
+  </div>
+{% endblock %}

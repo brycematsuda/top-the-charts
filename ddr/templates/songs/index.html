@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %} 
+{% block title %}
+  <title>Top The Charts - DDR</title>
+{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-12 col-lg-4">
+  <h4>Choose by Folder</h4>
+    <div class="list-group">
+      {% for folder in folders %}
+        <a class="list-group-item list-group-item-action" href="{% url 'song list by folder' folder.key %}">{{ folder.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-6 col-lg-4">
+    <h4>Choose by Single Level</h4>
+    <div class="list-group">
+      {# Counts from 1 to 19 #}
+      {% with ''|center:'19' as range %}
+        {% for _ in range %}
+          <a class="list-group-item list-group-item-action" href="{% url 'song list by mode level' 'single' forloop.counter %}">Level {{ forloop.counter }}</a>
+        {% endfor %}
+      {% endwith %}
+    </div>
+  </div>
+  <div class="col-6 col-lg-4">
+    <h4>Choose by Double Level</h4>
+    <div class="list-group">
+      {# Counts from 1 to 19 #}      
+      {% with ''|center:'19' as range %}
+        {% for _ in range %}
+          <a class="list-group-item list-group-item-action" href="{% url 'song list by mode level' 'double' forloop.counter %}">Level {{ forloop.counter }}</a>
+        {% endfor %}
+      {% endwith %}
+    </div>
+  </div>
+</div>
+{% endblock %}

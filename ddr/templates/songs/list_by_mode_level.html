@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+  <title>Top The Charts - DDR - {{ mode|title }} Play Level {{ level }}</title>
+{% endblock %}
+
+{% block content %}
+  <h4>{{ mode|title }} Play Level {{ level }}</h4>
+  <div class="card-group">
+  {% for song in songs %}
+    <div class="{{ song.difficulty }} card">
+      <div class="card-body">
+        <h4 class="card-title">{{ song.name }}</h4>
+        <p class="card-text">{{ song.artist}}</p>
+        {% if song.url %}
+          <a href="{{ song.url }}" target="_blank"><i style="color:black" class="fa fa-youtube-play fa-2x" aria-hidden="true"></i></a>
+        {% endif %}        
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:"3" and not forloop.last %}
+    </div>
+      <div class="card-group">
+    {% endif %}
+    {# If there are any cards hanging on a row at the end, add extra cards to prevent auto-resizing #}
+    {% if not forloop.counter|divisibleby:"3" and forloop.last %}
+      {% if forloop.counter|add:1|divisibleby:"3" %}
+      <div class="card"></div>
+      {% else %}
+      <div class="card"></div>
+      <div class="card"></div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  </div>
+{% endblock %}

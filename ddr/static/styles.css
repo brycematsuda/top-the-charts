@@ -1,0 +1,86 @@
+.beginner {
+  background-color: rgb(25, 165, 165, 0.6);
+}
+
+.basic {
+  background-color: rgb(255,255, 0, 0.6);
+}
+
+.difficult {
+  background-color: rgb(255, 0, 0, 0.6);
+}
+
+.expert {
+  background-color: rgba(0, 255, 0, 0.6);
+}
+
+.challenge {
+  background-color: rgb(128, 0, 128, 0.6);
+}
+
+.beginner-btn,
+.beginner-btn:hover,
+.beginner-btn:active,
+.beginner-btn:visited,
+.beginner-btn:focus {
+  background-color: teal;
+  border-color: teal;
+  color: white;
+}
+
+
+/* Default focus border color: may change later*/
+
+.beginner-btn:hover,
+.basic-btn:hover,
+.difficult-btn:hover,
+.expert-btn:hover,
+.challenge-btn:hover,
+.beginner-btn:hover,
+.basic-btn:hover,
+.difficult-btn:hover,
+.expert-btn:hover,
+.challenge-btn:hover {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.basic-btn,
+.basic-btn:hover,
+.basic-btn:active,
+.basic-btn:visited,
+.basic-btn:focus {
+  background-color: yellow;
+  border-color: yellow;
+  color: black;
+}
+
+.difficult-btn,
+.difficult-btn:hover,
+.difficult-btn:active,
+.difficult-btn:visited,
+.difficult-btn:focus {
+  background-color: red;
+  border-color: red;
+  color: white;
+}
+
+.expert-btn,
+.expert-btn:hover,
+.expert-btn:active,
+.expert-btn:visited,
+.expert-btn:focus {
+  background-color: green;
+  border-color: green;
+  color: white;
+}
+
+.challenge-btn,
+.challenge-btn:hover,
+.challenge-btn:active,
+.challenge-btn:visited,
+.challenge-btn:focus {
+  background-color: purple;
+  border-color: purple;
+  color: white;
+}
