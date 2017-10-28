@@ -8,10 +8,10 @@
   <h3>{{ folder.name }}</h3>
   <div class="card-group">
   {% for song in songs %}
-    <div class="card">
+    <div class="card border-dark">
       <div class="card-body">
         <h4 class="card-title">{{ song.name }}</h4>
-        <p class="card-text">{{ song.artist}}</p>
+        <p class="card-text">{{ song.artist }}</p>
         <span class="badge badge-primary">single</span>
         <div>
           {% if song.single_beginner %}
@@ -107,6 +107,11 @@
           {% endif %}
         </div>
       </div>
+      {% if song.us_locked %}
+      <div class="card-footer bg-warning">
+        Not available in US version
+      </div>
+      {% endif %}
     </div>
   {# If there are any cards hanging on a row at the end, add extra cards to prevent auto-resizing #}
   {% if forloop.counter|divisibleby:"3" and not forloop.last %}
@@ -114,10 +119,10 @@
   {% endif %}
   {% if not forloop.counter|divisibleby:"3" and forloop.last %}
     {% if forloop.counter|add:1|divisibleby:"3" %}
-    <div class="card"></div>
+    <div class="card border-dark"></div>
     {% else %}
-    <div class="card"></div>
-    <div class="card"></div>
+    <div class="card border-dark"></div>
+    <div class="card border-dark"></div>
     {% endif %}
   {% endif %}
   {% endfor %}

@@ -8,7 +8,7 @@
   <h4>{{ mode|title }} Play Level {{ level }}</h4>
   <div class="card-group">
   {% for song in songs %}
-    <div class="{{ song.difficulty }} card">
+    <div class="{{ song.difficulty }} card border-dark">
       <div class="card-body">
         <h4 class="card-title">{{ song.name }}</h4>
         <p class="card-text">{{ song.artist}}</p>
@@ -16,6 +16,11 @@
           <a href="{{ song.url }}" target="_blank"><i style="color:black" class="fa fa-youtube-play fa-2x" aria-hidden="true"></i></a>
         {% endif %}        
       </div>
+      {% if song.us_locked %}
+      <div class="card-footer bg-warning">
+        Not available in US version
+      </div>
+      {% endif %}
     </div>
     {% if forloop.counter|divisibleby:"3" and not forloop.last %}
     </div>
@@ -24,10 +29,10 @@
     {# If there are any cards hanging on a row at the end, add extra cards to prevent auto-resizing #}
     {% if not forloop.counter|divisibleby:"3" and forloop.last %}
       {% if forloop.counter|add:1|divisibleby:"3" %}
-      <div class="card"></div>
+      <div class="card border-dark"></div>
       {% else %}
-      <div class="card"></div>
-      <div class="card"></div>
+      <div class="card border-dark"></div>
+      <div class="card border-dark"></div>
       {% endif %}
     {% endif %}
   {% endfor %}
