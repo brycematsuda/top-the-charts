@@ -21,9 +21,19 @@ def song_list_by_folder(request, folder_key):
   except Folder.DoesNotExist:
     raise Http404("Folder does not exist")
   
-  # Songs that start with a number go to the bottom of the list
-  # (need to find a way to move songs that start with a Japanese character to the top)
-  songs = sorted(songs, key=lambda k: (k.sort_name[0].lower().isdigit(), k.sort_name.lower())) 
+  songs = list(songs)
+  # Current name sort in DDR is Japanese -> Alphabet -> Number
+  # Japanese songs = songs with a sort name that does not start with an alphanumeric character
+  # Algorithm: Separate Japanese songs into their own list
+  alphanum = re.compile(r'^[A-Za-z0-9]+$')
+  jp_songs = list(filter(lambda x: not alphanum.match(x.sort_name[0]), songs))
+  # Sort all other songs, putting number songs last
+  # (Japanese songs will already be sorted correctly provided sort name is only in hiragana  
+  alphanum_songs = list(set(songs) - set(jp_songs))
+  alphanum_songs = sorted(alphanum_songs, key=lambda k: (k.sort_name[0].lower().isdigit(), k.sort_name.lower()))  
+  # Put Japanese songs at the front of the main song list.
+  songs = jp_songs + alphanum_songs
+
   return render(request, 'songs/list_by_folder.html', {'folder': folder, 'songs': songs})
 
 def song_list_by_mode_level(request, mode, level):
@@ -41,8 +51,15 @@ def song_list_by_mode_level(request, mode, level):
     expert_songs = Song.objects.filter(double_expert=level).annotate(url=F('double_expert_video')).annotate(difficulty=Value('expert', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty').order_by('sort_name')
     challenge_songs = Song.objects.filter(double_challenge=level).annotate(url=F('double_challenge_video')).annotate(difficulty=Value('challenge', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
   
-  # Songs that start with a number go to the bottom of the list
-  # (need to find a way to move songs that start with a Japanese character to the top)  
+  # Current name sort in DDR is Japanese -> Alphabet -> Number
+  # Japanese songs = songs with a sort name that does not start with an alphanumeric character
+  # Algorithm: Sort all songs, with ones start with a number go to the bottom of the list
   songs = sorted(list(chain(beginner_songs, basic_songs, difficult_songs, expert_songs, challenge_songs)), key=lambda k: (k['sort_name'][0].lower().isdigit(), k['sort_name'].lower()))
-  
+  # Filter out Japanese songs and move them to the front of the list
+  # (already sorted above provided sort name is in hiragana)
+  alphanum = re.compile(r'^[A-Za-z0-9]+$')
+  jp_songs = list(filter(lambda x: not alphanum.match(x['sort_name'][0]), songs))
+  songs = list(filter(lambda x: alphanum.match(x['sort_name'][0]), songs))
+  songs = jp_songs + songs
+
   return render(request, 'songs/list_by_mode_level.html', {'mode': mode, 'level': level, 'songs': songs})
