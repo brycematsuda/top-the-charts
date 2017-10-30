@@ -9306,7 +9306,7 @@
     "pk": 279,
     "fields": {
       "name": "\u96f6 - ZERO -",
-      "sort_name": "\u308c\u3044 - ZERO -",
+      "sort_name": "\u305c\u308d - ZERO -",
       "artist": "T\u0401\u042fRA",
       "key": null,
       "folder": 11,
@@ -9339,7 +9339,7 @@
     "pk": 280,
     "fields": {
       "name": "\u51db\u3068\u3057\u3066\u54b2\u304f\u82b1\u306e\u5982\u304f",
-      "sort_name": "\u51db\u3068\u3057\u3066\u54b2\u304f\u82b1\u306e\u5982\u304f",
+      "sort_name": "\u308a\u3093\u3068\u3057\u3066\u3055\u304f\u306f\u306a\u306e\u3054\u3068\u304f",
       "artist": "\u7d05\u8272\u30ea\u30c8\u30de\u30b9",
       "key": null,
       "folder": 11,
@@ -10197,7 +10197,7 @@
     "pk": 306,
     "fields": {
       "name": "PARANOiA(X-Special)",
-      "sort_name": "PARANOiA(X-Special)",
+      "sort_name": "PARANOiA (X-Special)",
       "artist": "180",
       "key": null,
       "folder": 11,
@@ -10230,7 +10230,7 @@
     "pk": 307,
     "fields": {
       "name": "PARANOiA ETERNAL(X-Special)",
-      "sort_name": "PARANOiA ETERNAL(X-Special)",
+      "sort_name": "PARANOiA ETERNAL (X-Special)",
       "artist": "STM 200",
       "key": null,
       "folder": 11,
@@ -10263,7 +10263,7 @@
     "pk": 308,
     "fields": {
       "name": "PARANOIA EVOLUTION(X-Special)",
-      "sort_name": "PARANOIA EVOLUTION(X-Special)",
+      "sort_name": "PARANOIA EVOLUTION (X-Special)",
       "artist": "200",
       "key": null,
       "folder": 11,
@@ -10296,7 +10296,7 @@
     "pk": 309,
     "fields": {
       "name": "PARANOiA MAX\uff5eDIRTY MIX\uff5e(X-Special)",
-      "sort_name": "PARANOiA MAX\uff5eDIRTY MIX\uff5e(X-Special)",
+      "sort_name": "PARANOiA MAX\uff5eDIRTY MIX\uff5e (X-Special)",
       "artist": "190",
       "key": null,
       "folder": 11,
@@ -10329,7 +10329,7 @@
     "pk": 310,
     "fields": {
       "name": "PARANOiA Rebirth(X-Special)",
-      "sort_name": "PARANOiA Rebirth(X-Special)",
+      "sort_name": "PARANOiA Rebirth (X-Special)",
       "artist": "190'",
       "key": null,
       "folder": 11,
@@ -10527,7 +10527,7 @@
     "pk": 316,
     "fields": {
       "name": "S\uff65A\uff65G\uff65A",
-      "sort_name": "S\uff65A\uff65G\uff65A",
+      "sort_name": "SAGA",
       "artist": "Veeton",
       "key": null,
       "folder": 11,
@@ -11022,7 +11022,7 @@
     "pk": 331,
     "fields": {
       "name": "TRIP MACHINE(X-Special)",
-      "sort_name": "TRIP MACHINE(X-Special)",
+      "sort_name": "TRIP MACHINE (X-Special)",
       "artist": "DE-SIRE",
       "key": null,
       "folder": 11,
@@ -11055,7 +11055,7 @@
     "pk": 332,
     "fields": {
       "name": "TRIP MACHINE CLIMAX(X-Special)",
-      "sort_name": "TRIP MACHINE CLIMAX(X-Special)",
+      "sort_name": "TRIP MACHINE CLIMAX (X-Special)",
       "artist": "DE-SIRE",
       "key": null,
       "folder": 11,
