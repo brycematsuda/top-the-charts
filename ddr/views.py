@@ -37,20 +37,12 @@ def song_list_by_folder(request, folder_key):
   return render(request, 'songs/list_by_folder.html', {'folder': folder, 'songs': songs})
 
 def song_list_by_mode_level(request, mode, level):
-  # Need to find a better way to do this... :\
-  if mode == 'single':
-     beginner_songs = Song.objects.filter(single_beginner=level).annotate(url=F('single_beginner_video')).annotate(difficulty=Value('beginner', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-     basic_songs = Song.objects.filter(single_basic=level).annotate(url=F('single_basic_video')).annotate(difficulty=Value('basic', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-     difficult_songs = Song.objects.filter(single_difficult=level).annotate(url=F('single_difficult_video')).annotate(difficulty=Value('difficult', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-     expert_songs = Song.objects.filter(single_expert=level).annotate(url=F('single_expert_video')).annotate(difficulty=Value('expert', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-     challenge_songs = Song.objects.filter(single_challenge=level).annotate(url=F('single_challenge_video')).annotate(difficulty=Value('challenge', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-  elif mode == 'double':
-    beginner_songs = Song.objects.none() # double has no beginner difficulty
-    basic_songs = Song.objects.filter(double_basic=level).annotate(url=F('double_basic_video')).annotate(difficulty=Value('basic', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-    difficult_songs = Song.objects.filter(double_difficult=level).annotate(url=F('double_difficult_video')).annotate(difficulty=Value('difficult', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-    expert_songs = Song.objects.filter(double_expert=level).annotate(url=F('double_expert_video')).annotate(difficulty=Value('expert', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty').order_by('sort_name')
-    challenge_songs = Song.objects.filter(double_challenge=level).annotate(url=F('double_challenge_video')).annotate(difficulty=Value('challenge', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
-  
+  beginner_songs = __song_list_mode_level_helper(mode, level, 'beginner')
+  basic_songs = __song_list_mode_level_helper(mode, level, 'basic')
+  difficult_songs = __song_list_mode_level_helper(mode, level, 'difficult')
+  expert_songs = __song_list_mode_level_helper(mode, level, 'expert')
+  challenge_songs = __song_list_mode_level_helper(mode, level, 'challenge')
+
   # Current name sort in DDR is Japanese -> Alphabet -> Number
   # Japanese songs = songs with a sort name that does not start with an alphanumeric character
   # Algorithm: Sort all songs, with ones start with a number go to the bottom of the list
@@ -58,8 +50,25 @@ def song_list_by_mode_level(request, mode, level):
   # Filter out Japanese songs and move them to the front of the list
   # (already sorted above provided sort name is in hiragana)
   alphanum = re.compile(r'^[A-Za-z0-9]+$')
+  # Can't use set() - set() like in song_list_by_folder because __song_list_mode_level_helper returns a dictionary
+  # so create two separate lists with opposite regexes
   jp_songs = list(filter(lambda x: not alphanum.match(x['sort_name'][0]), songs))
   songs = list(filter(lambda x: alphanum.match(x['sort_name'][0]), songs))
   songs = jp_songs + songs
 
   return render(request, 'songs/list_by_mode_level.html', {'mode': mode, 'level': level, 'songs': songs})
+
+# Returns list of songs given a mode, difficulty, and level
+def __song_list_mode_level_helper(mode, level, difficulty):
+  if mode == 'double' and difficulty == 'beginner':
+    return Song.objects.none() # double has no beginner charts
+  else:    
+    mode_diff = mode + '_' + difficulty
+    filter_equals = mode_diff + '__exact'
+    return (
+    Song.objects.filter(**{filter_equals: level}) # kwargs dynamic filter [mode]-[difficulty]=[level] (e.g. single_basic=8)
+    .annotate(url=F(mode_diff + '_video')) # add custom field url containg chart video url
+    .annotate(difficulty=Value(difficulty, output_field=CharField())) # add custom column 'difficulty' with value being the given difficulty (e.g. difficulty='expert')
+    .values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection') # get column values, including custom ones created above
+    .order_by('sort_name')
+    )
