@@ -39,17 +39,17 @@ def song_list_by_folder(request, folder_key):
 def song_list_by_mode_level(request, mode, level):
   # Need to find a better way to do this... :\
   if mode == 'single':
-     beginner_songs = Song.objects.filter(single_beginner=level).annotate(url=F('single_beginner_video')).annotate(difficulty=Value('beginner', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
-     basic_songs = Song.objects.filter(single_basic=level).annotate(url=F('single_basic_video')).annotate(difficulty=Value('basic', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
-     difficult_songs = Song.objects.filter(single_difficult=level).annotate(url=F('single_difficult_video')).annotate(difficulty=Value('difficult', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
-     expert_songs = Song.objects.filter(single_expert=level).annotate(url=F('single_expert_video')).annotate(difficulty=Value('expert', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
-     challenge_songs = Song.objects.filter(single_challenge=level).annotate(url=F('single_challenge_video')).annotate(difficulty=Value('challenge', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
+     beginner_songs = Song.objects.filter(single_beginner=level).annotate(url=F('single_beginner_video')).annotate(difficulty=Value('beginner', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
+     basic_songs = Song.objects.filter(single_basic=level).annotate(url=F('single_basic_video')).annotate(difficulty=Value('basic', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
+     difficult_songs = Song.objects.filter(single_difficult=level).annotate(url=F('single_difficult_video')).annotate(difficulty=Value('difficult', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
+     expert_songs = Song.objects.filter(single_expert=level).annotate(url=F('single_expert_video')).annotate(difficulty=Value('expert', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
+     challenge_songs = Song.objects.filter(single_challenge=level).annotate(url=F('single_challenge_video')).annotate(difficulty=Value('challenge', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
   elif mode == 'double':
     beginner_songs = Song.objects.none() # double has no beginner difficulty
-    basic_songs = Song.objects.filter(double_basic=level).annotate(url=F('double_basic_video')).annotate(difficulty=Value('basic', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
-    difficult_songs = Song.objects.filter(double_difficult=level).annotate(url=F('double_difficult_video')).annotate(difficulty=Value('difficult', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
+    basic_songs = Song.objects.filter(double_basic=level).annotate(url=F('double_basic_video')).annotate(difficulty=Value('basic', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
+    difficult_songs = Song.objects.filter(double_difficult=level).annotate(url=F('double_difficult_video')).annotate(difficulty=Value('difficult', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
     expert_songs = Song.objects.filter(double_expert=level).annotate(url=F('double_expert_video')).annotate(difficulty=Value('expert', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty').order_by('sort_name')
-    challenge_songs = Song.objects.filter(double_challenge=level).annotate(url=F('double_challenge_video')).annotate(difficulty=Value('challenge', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked').order_by('sort_name')
+    challenge_songs = Song.objects.filter(double_challenge=level).annotate(url=F('double_challenge_video')).annotate(difficulty=Value('challenge', output_field=CharField())).values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection').order_by('sort_name')
   
   # Current name sort in DDR is Japanese -> Alphabet -> Number
   # Japanese songs = songs with a sort name that does not start with an alphanumeric character

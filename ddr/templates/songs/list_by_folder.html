@@ -107,6 +107,11 @@
           {% endif %}
         </div>
       </div>
+      {% if song.floor_infection %}
+      <div class="text-white card-footer bg-success">
+        Only unlockable via FLOOR INFECTION event
+      </div>
+      {% endif %}
       {% if song.us_locked %}
       <div class="card-footer bg-warning">
         Not available in US version
