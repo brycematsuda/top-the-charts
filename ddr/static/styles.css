@@ -1,13 +1,13 @@
 .beginner {
-  background-color: rgb(25, 165, 165, 0.6);
+  background-color: rgba(25, 165, 165, 0.6);
 }
 
 .basic {
-  background-color: rgb(255,255, 0, 0.6);
+  background-color: rgba(255,255, 0, 0.6);
 }
 
 .difficult {
-  background-color: rgb(255, 0, 0, 0.6);
+  background-color: rgba(255, 0, 0, 0.6);
 }
 
 .expert {
@@ -15,7 +15,7 @@
 }
 
 .challenge {
-  background-color: rgb(128, 0, 128, 0.6);
+  background-color: rgba(128, 0, 128, 0.6);
 }
 
 .beginner-btn,
