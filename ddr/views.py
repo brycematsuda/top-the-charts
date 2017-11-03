@@ -69,6 +69,6 @@ def __song_list_mode_level_helper(mode, level, difficulty):
     Song.objects.filter(**{filter_equals: level}) # kwargs dynamic filter [mode]-[difficulty]=[level] (e.g. single_basic=8)
     .annotate(url=F(mode_diff + '_video')) # add custom field url containg chart video url
     .annotate(difficulty=Value(difficulty, output_field=CharField())) # add custom column 'difficulty' with value being the given difficulty (e.g. difficulty='expert')
-    .values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection') # get column values, including custom ones created above
+    .values('name', 'sort_name', 'artist', 'difficulty', 'url', 'us_locked', 'floor_infection', 'challenge_has_shock_arrows') # get column values, including custom ones created above
     .order_by('sort_name')
     )

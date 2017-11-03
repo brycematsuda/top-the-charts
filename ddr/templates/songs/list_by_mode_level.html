@@ -10,11 +10,16 @@
   {% for song in songs %}
     <div class="{{ song.difficulty }} card border-dark">
       <div class="card-body">
-        <h4 class="card-title">{{ song.name }}</h4>
+        <h4 class="card-title">
+          {{ song.name }}
+          {% if song.difficulty == 'challenge' and song.challenge_has_shock_arrows %}
+            <i class="fa fa-bolt" aria-hidden="true"></i>
+          {% endif %}
+        </h4>
         <p class="card-text">{{ song.artist}}</p>
         {% if song.url %}
           <a href="{{ song.url }}" target="_blank"><i style="color:black" class="fa fa-youtube-play fa-2x" aria-hidden="true"></i></a>
-        {% endif %}        
+        {% endif %}
       </div>
       {% if song.floor_infection %}
       <div class="card-footer bg-success">
