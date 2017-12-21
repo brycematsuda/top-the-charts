@@ -30,7 +30,7 @@ def song_list_by_folder(request, folder_key):
   # (already sorted above provided sort name is in hiragana)    
   alphanum = re.compile(r'^[A-Za-z0-9]+$')
   jp_songs = list(filter(lambda x: not alphanum.match(x.sort_name[0]), songs))
-  alphanum_songs = list(set(songs) - set(jp_songs))
+  alphanum_songs = list(filter(lambda x: alphanum.match(x.sort_name[0]), songs))
   songs = jp_songs + alphanum_songs
 
   return render(request, 'songs/list_by_folder.html', {'folder': folder, 'songs': songs})
