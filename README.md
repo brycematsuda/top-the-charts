@@ -28,7 +28,7 @@ Project Scope
 
 ### Current Limitations
 
-Data or features in this project thare are not included or will not be pursued at this time for various reasons (space, time, liability, not worth the effort, etc.) include, but are not limited to:
+Data or features in this project that are not included or will not be pursued at this time for various reasons (space, time, liability, not worth the effort, etc.) include, but are not limited to:
 
 * Picture banners
 * Songs that are not available for play at any point as of the latest DanceDanceRevolution version
